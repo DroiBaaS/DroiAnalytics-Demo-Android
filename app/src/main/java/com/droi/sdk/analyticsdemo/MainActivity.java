@@ -16,10 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.droi.sdk.analytics.DroiAnalytics;
-import com.droi.sdk.analytics.Logger;
 import com.droi.sdk.core.AnalyticsCoreHelper;
 import com.droi.sdk.core.Core;
-import com.droi.sdk.internal.DroiLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +32,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.droi_example_activity_main);
-        Logger.i("MainActivity", "onCreate()");
         setClick();
         TextView deviceId = (TextView) findViewById(R.id.device_id);
         deviceId.setText(AnalyticsCoreHelper.getDeviceId());
@@ -47,7 +44,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Logger.i("MainActivity", "onResume()");
         DroiAnalytics.onResume(this);
     }
 
@@ -59,7 +55,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        Logger.i("MainActivity", "onPause()");
         DroiAnalytics.onPause(this);
     }
 
@@ -68,7 +63,6 @@ public class MainActivity extends Activity {
         activityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.i("MainActivity", "activity_button");
                 startActivity(new Intent(MainActivity.this, Activity1.class));
             }
         });
@@ -76,7 +70,6 @@ public class MainActivity extends Activity {
         fragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.i("MainActivity", "fragment_button");
                 startActivity(new Intent(MainActivity.this,
                         TabFragmentActivity.class));
             }
@@ -102,7 +95,6 @@ public class MainActivity extends Activity {
         countEventButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    Logger.i("MainActivity", "count_event_button");
                                                     Map<String, String> kv = new HashMap<String, String>();
                                                     if ((!countEventKey.getText().toString().trim().isEmpty()) && (!countEventValue.getText().toString().trim().isEmpty())) {
                                                         kv.put(countEventKey.getText().toString().trim(), countEventValue.getText().toString().trim());
@@ -139,7 +131,6 @@ public class MainActivity extends Activity {
         valueEventButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    Logger.i("MainActivity", "value_event_button");
                                                     Map<String, String> kv = new HashMap<String, String>();
                                                     try {
                                                         if (!valueEventDu.getText().toString().isEmpty()) {
@@ -168,7 +159,7 @@ public class MainActivity extends Activity {
         errorButton.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View v) {
-                                               Logger.i("MainActivity", "error_button");
+
                                                if (!errorText.getText().toString().isEmpty()) {
                                                    String errorInfo = errorText.getText().toString().trim();
                                                    DroiAnalytics.onError(mContext, errorInfo);
@@ -182,8 +173,7 @@ public class MainActivity extends Activity {
         crashButton.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View v) {
-                                               Logger.i("MainActivity", "crash_button");
-                                               "crash".substring(10);
+                                               throw new RuntimeException("\' fatal error happened \'");
                                            }
                                        }
         );
